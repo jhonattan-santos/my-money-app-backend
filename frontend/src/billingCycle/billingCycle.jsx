@@ -10,7 +10,6 @@ import TabsHeader from '../common/tabs/tabsHeader'
 import TabContents from '../common/tabs/tabsContent'
 import TabHeader from '../common/tabs/tabHeader'
 import TabContent from '../common/tabs/tabContent'
-import { selectTab, showTabs } from '../common/tabs/tabActions'
 import { create, init, update, remove } from './billingCycleActions'
 
 import BillingCycleList from './billingCycleList'
@@ -53,7 +52,7 @@ class BillingCycle extends Component {
                             <TabContent id='tabDelete'>
                                 <Form 
                                     onSubmit={this.props.remove} 
-                                    readOnly='true'
+                                    readOnly={true}
                                     submitClass='danger' 
                                     submitLabel='Deletar'/>
                             </TabContent>
@@ -66,10 +65,8 @@ class BillingCycle extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    selectTab, 
-    showTabs, 
-    create,
     init,
+    create,
     update,
     remove,
 }, dispatch)
