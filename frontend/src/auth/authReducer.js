@@ -4,18 +4,18 @@ const INITIAL_STATE = {
     validToken: false
 }
 
-export default ( state = INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'TOKEN_VALIDATED':
             if (action.payload) {
-                return { ...state, validToken }
+                return { ...state, validToken: true }
             } else {
                 localStorage.removeItem(userKey)
                 return { ...state, validToken: false, user: null }
             }
-        case 'USER_FATCHED':
+        case 'USER_FETCHED':
             localStorage.setItem(userKey, JSON.stringify(action.payload))
-            return { ...state, user: action.payload, validToken: true}
+            return { ...state, user: action.payload, validToken: true }
         default:
             return state
     }

@@ -6,10 +6,10 @@ import Dashboard from '../dashboard/dashboard'
 import BillingCycle from '../billingCycle/billingCycle'
 
 export default props => (
-    <div className="content-wrapper">
+    <div className='content-wrapper'>
         <Switch>
             <Route exact path='/' component={Dashboard} />
-            <Route path='/billingCycle' component={BillingCycle} />
+            <Route path='/billingCycles' component={BillingCycle} />
             <Redirect from='*' to='/' />
         </Switch>
     </div>
