@@ -1,14 +1,11 @@
 const _ = require('lodash')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-
 const User = require('./user')
-
-const env = process.env.AUTH_SECRET ? process.env.AUTH_SECRET : require('../../.env')
+const env = require('../../.env')
 
 const emailRegex = /\S+@\S+\.\S+/
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
-
+const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/
 
 const sendErrorsFromDB = (res, dbErrors) => {
     const errors = []
@@ -20,13 +17,13 @@ const login = (req, res, next) => {
     const email = req.body.email || ''
     const password = req.body.password || ''
 
-    User.findOne({ email }, (err, user) => {               
+    User.findOne({ email }, (err, user) => {
         if (err) {
-            return sendErrorsFromDB(res, err)            
+            return sendErrorsFromDB(res, err)
         } else if (user && bcrypt.compareSync(password, user.password)) {
             const token = jwt.sign({ ...user }, env.authSecret, {
                 expiresIn: "1 day"
-            })           
+            })
             const { name, email } = user
             res.json({ name, email, token })
         } else {
